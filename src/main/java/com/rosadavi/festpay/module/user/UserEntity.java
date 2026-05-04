@@ -28,6 +28,8 @@ public class UserEntity {
     @Column(unique = true)
     private String phone;
 
+    private String password;
+
     private LocalDate created_at;
 
     @PrePersist
