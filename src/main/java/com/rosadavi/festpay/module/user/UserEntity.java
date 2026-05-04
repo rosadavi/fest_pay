@@ -30,6 +30,8 @@ public class UserEntity {
 
     private String password;
 
+    private String role;
+
     private LocalDate created_at;
 
     @PrePersist
