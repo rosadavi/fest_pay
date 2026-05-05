@@ -1,5 +1,7 @@
 package com.rosadavi.festpay.module.auth;
 
+import com.rosadavi.festpay.module.user.UserEntity;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
@@ -15,9 +17,10 @@ public class AuthService {
         return Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String generateToken(String userId) {
+    public String generateToken(UserEntity user) {
         return Jwts.builder()
-                .setSubject(userId)
+                .setSubject(user.getId().toString())
+                .claim("role", user.getRole().name())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
                 .signWith(getKey())
@@ -31,5 +34,13 @@ public class AuthService {
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
+    }
+
+    public Claims getClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 }
