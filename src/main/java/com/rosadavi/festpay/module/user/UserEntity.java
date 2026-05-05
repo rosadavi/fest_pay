@@ -30,7 +30,8 @@ public class UserEntity {
 
     private String password;
 
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
     private LocalDate created_at;
 
