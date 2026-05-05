@@ -1,11 +1,14 @@
 package com.rosadavi.festpay.module.config;
 
 import com.rosadavi.festpay.module.auth.AuthService;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -31,24 +34,20 @@ public class JwtFilter extends OncePerRequestFilter {
             String token = header.substring(7);
 
             try {
-                String userId = jwt.validateToken(token);
+                Claims claims = jwt.getClaims(token);
 
-                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userId, null, List.of());
+                String userId = claims.getId();
+                String role = claims.get("role", String.class);
+
+                List<GrantedAuthority> authorities = List.of(
+                        new SimpleGrantedAuthority("ROLE_" + role)
+                );
+
+                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userId, null, authorities);
 
                 SecurityContextHolder.getContext().setAuthentication(auth);
             } catch (Exception e) {
-                res.setStatus(401);
-                res.setContentType("application/json");
-                res.setCharacterEncoding("UTF-8");
-
-                String json = """
-                        {
-                            "error": "Invalid or expired token"
-                        }
-                        """;
-
-                res.getWriter().write(json);
-                return;
+                System.out.println("ERROR HERE");
             }
         }
 
