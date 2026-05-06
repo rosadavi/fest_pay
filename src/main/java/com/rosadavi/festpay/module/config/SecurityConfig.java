@@ -24,7 +24,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**", "/").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/event").hasRole("OWNER")
+                        .requestMatchers(HttpMethod.POST, "/event").hasRole("OWNER")
+                        .requestMatchers(HttpMethod.POST, "/product").hasRole("STALL")
+                        .requestMatchers(HttpMethod.POST, "/product-item").hasRole("STALL")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwt, UsernamePasswordAuthenticationFilter.class)

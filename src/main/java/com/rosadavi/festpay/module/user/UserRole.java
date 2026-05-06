@@ -1,8 +1,7 @@
 package com.rosadavi.festpay.module.user;
 
 public enum UserRole {
-    ADMIN("admin"),
-    USER("user"),
+    STALL("stall"),
     OWNER("owner");
 
     private final String role;
