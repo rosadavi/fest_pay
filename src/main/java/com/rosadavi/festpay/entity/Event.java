@@ -42,6 +42,6 @@ public class Event {
     }
 
     @ManyToOne
-    @JoinColumn(name = "user_default_id")
+    @JoinColumn(name = "user_updated_id")
     private UserUpdated userUpdated;
 }
