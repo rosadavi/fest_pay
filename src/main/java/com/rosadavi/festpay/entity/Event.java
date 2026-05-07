@@ -46,6 +46,6 @@ public class Event {
     @JoinColumn(name = "user_updated_id")
     private UserUpdated userUpdated;
 
-    @OneToMany(mappedBy = "stall")
+    @OneToMany(mappedBy = "event")
     private List<Stall> stallList;
 }

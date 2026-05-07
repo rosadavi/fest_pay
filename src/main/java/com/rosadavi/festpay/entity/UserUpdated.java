@@ -51,6 +51,6 @@ public class UserUpdated {
     @OneToMany(mappedBy = "userUpdated")
     private List<Event> events;
 
-    @OneToMany(mappedBy = "stall")
+    @OneToMany(mappedBy = "userUpdated")
     private List<Stall> stallList;
 }
