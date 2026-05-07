@@ -31,4 +31,8 @@ public class UserUpdated {
     private String description;
 
     private UserUpdatedRole role;
+
+    @OneToOne
+    @JoinColumn(name = "user_default_id")
+    private UserDefault userDefault;
 }

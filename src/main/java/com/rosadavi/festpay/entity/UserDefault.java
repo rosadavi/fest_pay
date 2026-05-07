@@ -32,4 +32,8 @@ public class UserDefault {
         this.created_at = LocalDate.now();
         this.updated_at = LocalDate.now();
     }
+
+    @OneToOne(mappedBy = "userDefault", cascade = CascadeType.ALL)
+    private UserUpdated userUpdated;
+
 }
