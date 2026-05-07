@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -41,4 +42,7 @@ public class Stall {
     @ManyToOne
     @JoinColumn(name = "event_id")
     private Event event;
+
+    @OneToMany(mappedBy = "stall")
+    private List<Product> products;
 }
