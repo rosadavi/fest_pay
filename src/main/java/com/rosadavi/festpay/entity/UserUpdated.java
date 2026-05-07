@@ -50,4 +50,7 @@ public class UserUpdated {
 
     @OneToMany(mappedBy = "userUpdated")
     private List<Event> events;
+
+    @OneToMany(mappedBy = "stall")
+    private List<Stall> stallList;
 }

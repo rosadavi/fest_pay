@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -44,4 +45,7 @@ public class Event {
     @ManyToOne
     @JoinColumn(name = "user_updated_id")
     private UserUpdated userUpdated;
+
+    @OneToMany(mappedBy = "stall")
+    private List<Stall> stallList;
 }
