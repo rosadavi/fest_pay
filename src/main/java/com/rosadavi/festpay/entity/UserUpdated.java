@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Getter
@@ -31,6 +32,16 @@ public class UserUpdated {
     private String description;
 
     private UserUpdatedRole role;
+
+    private LocalDate created_at;
+
+    private LocalDate updated_at;
+
+    @PrePersist
+    public void prePersist() {
+        this.created_at = LocalDate.now();
+        this.updated_at = LocalDate.now();
+    }
 
     @OneToOne
     @JoinColumn(name = "user_default_id")
