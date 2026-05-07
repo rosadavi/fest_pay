@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -46,4 +47,7 @@ public class UserUpdated {
     @OneToOne
     @JoinColumn(name = "user_default_id")
     private UserDefault userDefault;
+
+    @OneToMany(mappedBy = "userUpdated")
+    private List<Event> events;
 }
